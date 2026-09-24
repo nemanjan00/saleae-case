@@ -244,8 +244,8 @@ module usb_plug() {
 
 // --- LED window (roof, probe side, right-hand when viewed from the probe side) ---
 // Offsets are measured on the device from its front-right corner.
-led_off_x = 10;   // from device right edge (+X side), measured ~10 mm
-led_off_y = 10;   // from device front edge (probe side), measured ~10 mm
+led_off_x = 12;   // from device right edge (+X side)
+led_off_y = 12;   // from device front edge (probe side)
 led_d     = 3;    // hole diameter
 
 led_x = dev_x0 + dev_w - led_off_x;
@@ -257,17 +257,18 @@ module led_hole() {
 }
 
 // --- Logo windows (roof and floor, centered) ---
-logo_size = 32;   // square side: 30 mm logo + 1 mm margin each side
+logo_size     = 32;   // bottom window: 30 mm logo + 1 mm margin each side
+logo_size_top = 36;   // top window, enlarged so the LED shows through it
 logo_r    = 3;    // corner radius
 logo_dx   = 0;    // shift from roof center (+X = right, seen from probe side)
 logo_dy   = 0;    // shift from roof center (+Y = towards USB)
 
 // Through-cut starting at z0, thickness t (roof or floor)
-module logo_window(z0, t) {
-    translate([case_w / 2 + logo_dx - logo_size / 2,
-               case_d / 2 + logo_dy - logo_size / 2,
+module logo_window(z0, t, size) {
+    translate([case_w / 2 + logo_dx - size / 2,
+               case_d / 2 + logo_dy - size / 2,
                z0 - 1])
-        rounded_box(logo_size, logo_size, t + 2, logo_r);
+        rounded_box(size, size, t + 2, logo_r);
 }
 
 module shell() {
@@ -291,7 +292,7 @@ module case_bottom() {
         for (p = all_screw_pos)
             translate([p[0], p[1], bottom_h - screw_depth])
                 cylinder(d = screw_pilot_d, h = screw_depth + 1);
-        logo_window(0, case_floor);
+        logo_window(0, case_floor, logo_size);
     }
 }
 
@@ -306,7 +307,7 @@ module case_top() {
             translate([p[0], p[1], bottom_h - 1])
                 cylinder(d = screw_clear_d, h = top_h + 2);
         led_hole();
-        logo_window(case_floor + pk_h, case_roof);
+        logo_window(case_floor + pk_h, case_roof, logo_size_top);
     }
 }
 
