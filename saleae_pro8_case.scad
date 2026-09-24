@@ -11,7 +11,7 @@ dev_w    = 54.62;  // X - along the probe / USB faces
 dev_d    = 64.62;  // Y - from probe face to USB face
 dev_h    = 12.88;  // Z - including feet
 dev_feet = 1;      // feet height (body starts this far above the floor)
-dev_r    = 10;     // vertical corner radius (LED sits at its center, ~10 mm from edges)
+dev_r    = 12;     // vertical corner radius, measured with radius gauge
 
 // Pocket = device + clearance
 dev_clear   = 0.25;  // per side, X/Y
@@ -264,9 +264,8 @@ module usb_plug() {
 
 // --- LED window (roof, probe side, right-hand when viewed from the probe side) ---
 // Offsets are measured on the device from its front-right corner.
-// LED sits at the center of the corner radius.
-led_off_x = dev_r;   // from device right edge (+X side)
-led_off_y = dev_r;   // from device front edge (probe side)
+led_off_x = 10;   // from device right edge (+X side), measured ~10 mm
+led_off_y = 10;   // from device front edge (probe side), measured ~10 mm
 led_d     = 3;    // hole diameter
 
 led_x = dev_x0 + dev_w - led_off_x;
