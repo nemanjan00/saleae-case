@@ -33,7 +33,7 @@ module device() {
 }
 
 module pocket() {
-    rounded_box(pk_w, pk_d, pk_h + 1, pk_r);
+    rounded_box(pk_w, pk_d, pk_h, pk_r);
 }
 
 // --- Case ---
