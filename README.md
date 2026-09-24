@@ -5,7 +5,7 @@ the micro-USB 3.0 plug, so the cable can't be pulled out or wiggled loose.
 
 - Split through the USB plug center; the plug overmold is enclosed in a shroud
   whose end wall only passes the strain relief
-- Probe opening with engraved channel numbers 0–7
+- Probe opening
 - LED window and logo windows (top and bottom)
 - Fully parametric OpenSCAD (`saleae_pro8_case.scad`)
 

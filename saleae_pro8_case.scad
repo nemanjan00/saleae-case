@@ -8,7 +8,7 @@ part = "assembly";
 
 // --- Device (Saleae Logic Pro 8), measured ---
 dev_w    = 54.62;  // X - along the probe / USB faces
-dev_d    = 64.62;  // Y - from probe face to USB face
+dev_d    = 54.62;  // Y - from probe face to USB face (device is square)
 dev_h    = 12.88;  // Z - including feet
 dev_feet = 1;      // feet height (body starts this far above the floor)
 dev_r    = 12;     // vertical corner radius, measured with radius gauge
@@ -105,26 +105,6 @@ module probe_cutout() {
                 rounded_box(probe_cut_w, probe_cut_h, case_wall + 2, probe_cut_r);
 }
 
-// --- Channel labels (engraved into top roof, above probe cutout) ---
-label_count  = 8;
-label_pitch  = 3.1;   // spacing between neighbouring channel numbers
-label_split  = 2.5;   // extra space between channels 3 and 4
-label_y      = case_wall + 2.5;  // distance of text center from front edge
-label_size   = 2.8;
-label_depth  = 0.4;   // shallow engrave (2 layers @ 0.2 mm)
-
-// X center of channel i: row centered on the case, extra gap in the middle
-function label_x(i) = case_w / 2 + (i - (label_count - 1) / 2) * label_pitch
-                      + (i < label_count / 2 ? -1 : 1) * label_split / 2;
-
-module channel_labels() {
-    for (i = [0 : label_count - 1])
-        translate([label_x(i), label_y, case_h - label_depth])
-            linear_extrude(label_depth + 1)
-                text(str(i), size = label_size, halign = "center", valign = "center",
-                     font = "Liberation Sans:style=Bold");
-}
-
 // --- Micro-USB 3.0 (Micro-B SuperSpeed) plug, back wall (Y = case_d) ---
 // Port is centered on the back face of the device, horizontally and vertically.
 // Metal shell: approx. per USB 3.0 Micro-B spec. Overmold: PLACEHOLDERS - measure your cable.
@@ -142,7 +122,7 @@ usb_mold_l    = 21;    // overmold length (Y) from device face, measured (excl. 
 usb_mold_r    = 1.5;   // overmold corner radius (as seen from the end) PLACEHOLDER
 usb_mold_end_r = 4;    // rounding of the cable-side end, horizontal and vertical, measured
                        // (vertical is capped at half the overmold height)
-usb_mold_gap  = 0;     // gap between device face and overmold when fully inserted
+usb_mold_gap  = 0.2;   // gap between device face and overmold when fully inserted
 usb_cable_d   = 7.6;   // strain relief diameter (7.54 measured, rounded up) - sets exit hole
 usb_wire_d    = 6;     // cable diameter, measured (preview only)
 usb_relief_l  = 10;    // strain relief length (preview only) PLACEHOLDER
@@ -325,7 +305,6 @@ module case_top() {
         for (p = all_screw_pos)
             translate([p[0], p[1], bottom_h - 1])
                 cylinder(d = screw_clear_d, h = top_h + 2);
-        channel_labels();
         led_hole();
         logo_window(case_floor + pk_h, case_roof);
     }
