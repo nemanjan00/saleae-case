@@ -91,7 +91,7 @@ module screw_model() {
 probe_w       = 26.2;  // probe connector width  (X)
 probe_h       = 7.3;   // probe connector height (Z)
 probe_top_off = 1.0;   // device top to connector top PLACEHOLDER ("almost on top")
-probe_clear   = 0.3;   // per side
+probe_clear   = 0.4;   // per side
 probe_cut_r   = 1;     // corner radius of the opening
 
 probe_cut_w = probe_w + 2 * probe_clear;
