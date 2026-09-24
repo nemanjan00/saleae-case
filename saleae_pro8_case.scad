@@ -196,6 +196,10 @@ usb_shroud_side  = 1.5;   // material between shroud screw hole and outside
 usb_shroud_end   = 3;     // end wall thickness (the part that stops the plug)
 usb_shroud_r     = 2;     // shroud vertical corner radius
 usb_cable_clear  = 0.1;   // clearance per side around the strain relief
+// NOTE (verified on print): the rounded pocket end (usb_mold_end_r) + exit hole
+// (usb_cable_d, usb_cable_clear) + pocket length (usb_clear_len) together form a
+// collar that lightly pinches the strain relief and holds the cable rigidly against
+// push and pull. Re-test the grip after changing any of these.
 usb_flare_r      = 1.5;   // rounded bell-mouth at the cable exit (bend relief)
 usb_screw_inset  = 3;     // shroud screws: distance from overmold back end, towards device
 
