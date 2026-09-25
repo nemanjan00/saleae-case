@@ -12,11 +12,14 @@ the micro-USB 3.0 plug, so the cable can't be pulled out or wiggled loose.
 ## Build
 
 ```sh
-openscad -D 'part="bottom"'    -o case_bottom.stl saleae_pro8_case.scad
-openscad -D 'part="top_print"' -o case_top.stl    saleae_pro8_case.scad
+make          # case_bottom.stl + case_top.stl (only rebuilds when the .scad changed)
+make gauge    # radius gauge STLs
+make clean
 ```
 
-Other `part` values: `assembly` (preview with plug and screws), `top`, `plug`, `print`.
+Directly: `openscad -D 'part="bottom"' -o case_bottom.stl saleae_pro8_case.scad`
+(`part="top_print"` for the top, flipped for printing). Other `part` values:
+`assembly` (preview with plug and screws), `top`, `plug`, `print`.
 
 ## Print
 
