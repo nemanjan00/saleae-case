@@ -1,0 +1,44 @@
+name: Build STLs
+
+# Every push to master rebuilds the STLs and replaces the rolling "latest" release.
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-latest
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install OpenSCAD
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends openscad fonts-liberation make
+
+      - name: Build STLs
+        run: make case gauge
+
+      - name: Publish "latest" release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest --cleanup-tag --yes || true
+          gh release create latest *.stl \
+            --target "$GITHUB_SHA" \
+            --title "Latest build (${GITHUB_SHA::7})" \
+            --notes "STLs built from ${GITHUB_SHA}.
+
+          - \`case_bottom.stl\` - bottom half
+          - \`case_top.stl\` - top half, flipped roof-down for printing
+          - \`radius_gauge*.stl\` - corner radius gauges" \
+            --latest
