@@ -189,7 +189,7 @@ module usb_plug_local() {
 // The split plane runs through the plug center, so each half holds half the plug.
 // Shroud is full case height so its screws match the corner screws (M2x12).
 usb_clear        = 0.3;   // clearance per side around the overmold (X/Z)
-usb_clear_len    = 0.4;   // extra pocket length behind the overmold (tuned on proto), set
+usb_clear_len    = 0.6;   // extra pocket length behind the overmold (tuned on proto), set
                           // negative for a slight crush fit; play here = plug can back out
 usb_shroud_wall  = 1.5;   // material between overmold pocket and shroud screw hole
 usb_shroud_side  = 1.5;   // material between shroud screw hole and outside
